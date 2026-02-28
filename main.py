@@ -1,48 +1,45 @@
 import google.generativeai as genai
-import json
+import os
 
-# 1. Configure your Gemini API Key here (From Google AI Studio)
-API_KEY = "YOUR_GEMINI_API_KEY_HERE"
-genai.configure(api_key=API_KEY)
+def robo_ops_orchestrator():
+    # 1. API Configuration
+    # Replace the string below with your actual Gemini API Key
+    api_key = "YOUR_GEMINI_API_KEY_HERE" 
+    genai.configure(api_key=api_key)
 
-# 2. Setup Gemini Model Configuration
-model = genai.GenerativeModel('gemini-1.5-flash')
-
-def generate_robot_plan(user_command):
-    """
-    Transforms human natural language commands into structured robotic JSON tasks.
-    """
+    # 2. Model Initialization
+    model = genai.GenerativeModel('gemini-1.5-flash')
+    
+    # Test command from your previous logic
+    user_command = "Pick up the blue box from Zone A and move it to Zone C"
+    
+    # System Instructions for JSON output
     prompt = f"""
-    You are an AI Robotics Orchestrator. 
-    Convert the following human command into a structured JSON format for a robot.
-    
-    Command: "{user_command}"
-    
-    Expected JSON Structure:
+    System: You are an AI Robot Controller. Convert natural language into structured JSON tasks.
+    User Command: {user_command}
+    Output Format: 
     {{
-      "task_name": "Name of the task",
-      "actions": ["list", "of", "steps"],
-      "priority": "high/medium/low"
+        "task": "string",
+        "target": "string",
+        "source": "string",
+        "destination": "string",
+        "priority": "high/medium/low"
     }}
     """
-    
-    try:
-        # Generate response from Gemini API
-        response = model.generate_content(prompt)
-        return response.text
-    except Exception as e:
-        return f"Error encountered: {str(e)}"
 
-# 3. Main execution and testing
+    try:
+        # 3. Execution Logic
+        print("--- Robo-Ops AI Orchestrator ---")
+        print(f"Input Command: {user_command}")
+        
+        # Generate Content using Gemini AI
+        response = model.generate_content(prompt)
+        
+        print("\nAI Generated Robot Task:")
+        print(response.text)
+        
+    except Exception as e:
+        print(f"Error encountered: {str(e)}")
+
 if __name__ == "__main__":
-    print("--- Robo-Ops AI Orchestrator ---")
-    
-    # Test command for the robotic arm
-    command = "Pick up the blue box from Zone A and move it to Zone C"
-    
-    print(f"User Input: {command}")
-    print("Generating Robotic Plan via Gemini...")
-    
-    result = generate_robot_plan(command)
-    print("\nGenerated JSON Plan:")
-    print(result)
+    robo_ops_orchestrator()
