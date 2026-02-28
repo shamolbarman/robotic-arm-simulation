@@ -11,7 +11,7 @@ Robo-Ops is designed to simplify how we interact with robotic systems. Instead o
 - **DevOps Integration:** Seamlessly tracks tasks and updates within the developer workflow.
 - **Structured Output:** Generates precise JSON for robot controller compatibility.
 
-## 🛠️ Built With
+## Built With
 - **Google Gemini API** (via Google AI Studio)
 - **GitHub / GitLab** (Project Management)
 - **Python** (Logic Framework)
